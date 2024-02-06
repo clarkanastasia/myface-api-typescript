@@ -1,0 +1,15 @@
+.flexContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.postsContainer{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.post {
+    flex: 25%; 
+    width: 25%;
+    }
