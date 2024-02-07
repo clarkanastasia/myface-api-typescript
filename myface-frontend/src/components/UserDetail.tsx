@@ -14,23 +14,30 @@ export default function UserDetail() {
     }
 
     return(
-        <div className = "main">
+        <div className = "flexContainer">
             <div className="profileContainer">
-                <img src={myData.coverImageUrl}></img>
-                <img src = {myData.profileImageUrl}/> 
+                <img className="coverImage" src={myData.coverImageUrl}></img>
+                <div className="transparentDiv"></div>
+                <img className="profileImage" src = {myData.profileImageUrl}/> 
                 <h3>{myData.name}</h3>
-                <p>{myData.username}</p>
-                <p>{myData.email}</p>
+                <div className="profileInfo">
+                    <p className="profileName">{myData.username}</p>
+                    <p className="profileEmail">{myData.email}</p>
+                </div>    
             </div>
-            <div className="postsContainer">
+            <h2 className="subtitle">{myData.name}'s Posts</h2>
+            <ol className="postsContainer">
             {myData.posts.map((post: any) =>
-                <div className="post" key={post.id}>
-                    <h3>{post.message}</h3>
-                    <p>{post.createdAt}</p>
-                    <img src={post.imageUrl}></img>
-                </div>
+                <li className="postContainer" key={post.id}>
+                    <img className="postImage" src={post.imageUrl}></img>
+                    <div className="postInfo">
+                        <p className="postUsername">{post.username}</p>
+                        <p className="postCreatedAt">{post.createdAt}</p>
+                        <p className="postMessage">{post.message}</p>
+                    </div>
+                </li>
             )}
-            </div>
+            </ol>
         </div>
     )
 }

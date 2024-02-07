@@ -13,13 +13,13 @@ export default function PostList(){
     
     return (
         <div className="flexContainer">
-            <h1> Posts</h1>
+            <h1 className="subtitle">Posts</h1>
             <div className="postsContainer">
-            {myData.results.map((post: any, index: number) =>
-                <div className="post" key={index}>
+            {myData.results.map((post: any) =>
+                <div className="postContainer" key={post.id}>
                     <h3>{post.message}</h3>
                     <p>{post.createdAt}</p>
-                    <img src={post.imageUrl}></img>
+                    <img className="postImage" src={post.imageUrl}></img>
                     <p>Posted by: {post.postedBy.name} - {post.postedBy.username}</p>
                     <p>Liked by:</p>
                     {post.likedBy.map((user: any) =>
@@ -32,7 +32,7 @@ export default function PostList(){
                     {post.dislikedBy.map((user: any) =>
                         <li>{user.username}</li>
                     )}
-                    <form method="post" action="/posts/{post.id}/dislike">
+                    <form className= "postButtonContainer" method="post" action="/posts/{post.id}/dislike">
                         <button type="submit">Dislike</button>  
                     </form>
                 </div>
