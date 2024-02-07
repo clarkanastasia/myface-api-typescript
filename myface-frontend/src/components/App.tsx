@@ -1,8 +1,10 @@
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom';
-import '../css/App.css'
+import '../css/App.scss'
 import PostList from './PostList'
 import UserDetail from './UserDetail'
 import UserList from './UserList'
+import CreatePost from './CreatePost'
+import CreateUser from './CreateUser';
 
 export default function App() {
   return(
@@ -10,6 +12,8 @@ export default function App() {
         <Routes>
           <Route path= "/posts" element = {<PostList/>}/>
           <Route path = "/users/" element = {<UserList/>}/> 
+          <Route path= "/posts/create" element = {<CreatePost/>}/>
+          <Route path= "/users/create" element = {<CreateUser/>}/>
           <Route path = "/users/:userId/" element = {<UserDetail/>}/> 
           <Route path='*' element= {
             <div>
