@@ -1,7 +1,6 @@
 import {useState, useEffect} from 'react'
 
 export default function PostList(){
-    
     const [myData, setMyData] = useState<any>(null);
 
     useEffect(() => {
@@ -9,24 +8,35 @@ export default function PostList(){
     }, [])
     
     if(!myData){
-        return (
-        <>
-        <h1>Waiting for data</h1>
-        </>
-    )}
+        return <h1>Waiting for data</h1>
+    }
     
     return (
         <div className="flexContainer">
             <h1> Posts</h1>
             <div className="postsContainer">
-            {myData.results.map((post: any) =>
-                <div className="post">
-                    <img src={post.imageUrl}></img>
-                    <h3>{post.postedBy.name}</h3>
-                    <p>{post.message}</p>
+            {myData.results.map((post: any, index: number) =>
+                <div className="post" key={index}>
+                    <h3>{post.message}</h3>
                     <p>{post.createdAt}</p>
+                    <img src={post.imageUrl}></img>
+                    <p>Posted by: {post.postedBy.name} - {post.postedBy.username}</p>
+                    <p>Liked by:</p>
+                    {post.likedBy.map((user: any) =>
+                        <li>{user.username}</li>
+                    )}
+                    <form method="post" action="/posts/{post.id}/like">
+                        <button type="submit">Like</button>  
+                    </form>
+                    <p>Disliked by:</p>
+                    {post.dislikedBy.map((user: any) =>
+                        <li>{user.username}</li>
+                    )}
+                    <form method="post" action="/posts/{post.id}/dislike">
+                        <button type="submit">Dislike</button>  
+                    </form>
                 </div>
-            )}    
+            )}
             </div>
         </div>
     )
