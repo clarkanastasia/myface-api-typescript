@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
+import {UserModel} from '../models/api/userModel'
 
 export default function UserDetail() {
-    const [myData, setMyData] = useState<any>(null);
+    const [myData, setMyData] = useState<UserModel|null>(null);
     const { userId } = useParams();
 
     useEffect(() => {
@@ -19,25 +20,30 @@ export default function UserDetail() {
                 <img className="coverImage" src={myData.coverImageUrl}></img>
                 <div className="transparentDiv"></div>
                 <img className="profileImage" src = {myData.profileImageUrl}/> 
-                <h3>{myData.name}</h3>
+                <p className="profileName">{myData.name}</p>
                 <div className="profileInfo">
-                    <p className="profileName">{myData.username}</p>
+                    <p className="profileUsername">{myData.username}</p>
                     <p className="profileEmail">{myData.email}</p>
                 </div>    
             </div>
             <h2 className="subtitle">{myData.name}'s Posts</h2>
-            <ol className="postsContainer">
+            <div className="postsContainer">
             {myData.posts.map((post: any) =>
-                <li className="postContainer" key={post.id}>
+                <div className="postContainer" key={post.id}>
                     <img className="postImage" src={post.imageUrl}></img>
                     <div className="postInfo">
-                        <p className="postUsername">{post.username}</p>
+                        <p className="profileUsername">{myData.username}</p>
                         <p className="postCreatedAt">{post.createdAt}</p>
                         <p className="postMessage">{post.message}</p>
                     </div>
-                </li>
+                </div>
             )}
-            </ol>
+            </div>
+            <div className="postButtonContainer">
+                <form method="post">
+                    <button type="submit">Load More</button>  
+                </form>
+            </div>
         </div>
     )
 }

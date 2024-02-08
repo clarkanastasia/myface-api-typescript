@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
+import {Page} from '../models/api/page'
+import {UserModel} from '../models/api/userModel'
 
 export default function UserList() {
-    const [myData, setMyData] = useState<any>(null);
+    const [myData, setMyData] = useState<Page<UserModel>|null>(null);
 
     useEffect(() => {
         fetch("http://localhost:3001/users/").then(response => response.json()).then(data => setMyData(data));
@@ -12,10 +14,10 @@ export default function UserList() {
     }
 
     return (
-        <div>
-            <h1>Users</h1>
-            <div className ="userList">
-            {myData.results.map((user: any) =>
+        <div className="flexContainer">
+            <h1 className="subtitle">Users</h1>
+            <div className ="postsContainer">
+            {myData.results.map((user) =>
                 <div className="user" key={user.id}>
                     <img src={user.profileImageUrl}></img>
                     <p>{user.name}</p>
