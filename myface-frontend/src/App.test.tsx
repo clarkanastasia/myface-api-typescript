@@ -1,10 +1,9 @@
-// import React from 'react';
-// import App from './components/App';
 import { render } from '@testing-library/react';
-import PostList from './components/PostList';
+import CreatePost from './components/CreatePost';
+import '@testing-library/jest-dom/extend-expect'
 
-test('renders Posts text', () => {
-    const { getByText } = render(<PostList />);
-    const textElement = getByText(/Posts/i);
+test('renders create posts heading', () => {
+    const { getByText } = render(<CreatePost />);
+    const textElement = getByText(/Create Posts/i);
     expect(textElement).toBeInTheDocument();
 });
