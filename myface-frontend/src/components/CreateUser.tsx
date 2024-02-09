@@ -25,7 +25,9 @@ export default function CreateUser(){
     const [errors, setErrors]= useState<string | undefined>(undefined);
 
     const validateInput = (user : CreateUserRequest) => {
-        let error : string = ''; 
+        let error : string = '';
+        const emailRegex =  /((@[a-z\d-]+)\.([a-z\d-]){2,}(\.[a-z]{2,})?)+$/gi;
+        const urlRegex =  "((http|https)://)(www.)?[a-zA-Z0-9@:%._\\+~#?&//=]{2,256}\\.[a-z]{2,6}\\b([-a-zA-Z0-9@:%._\\+~#?&//=]*)"
 
     if(user.username.length < 2){
         error = "the username is too short";
@@ -34,6 +36,16 @@ export default function CreateUser(){
     } 
     if(user.email === ''){ 
         error="email cannot be empty";
+        setErrors(error);
+        setIsValidated(false);
+    }
+    if(!user.email.match(emailRegex)){
+        error= "Please enter a valid email address";
+        setErrors(error);
+        setIsValidated(false);
+    }
+    if(!user.profileImageUrl.match(urlRegex) || !user.coverImageUrl.match(urlRegex)){
+        error = "Please enter a valid url";
         setErrors(error);
         setIsValidated(false);
     }
