@@ -45,12 +45,12 @@ export default function CreatePost(){
                 <label>
                     Message:
                     <br/>
-                    <input type="text" name="message" value={input.message} onChange={handleChange}/>
+                    <input type="text" placeholder="message" name="message" value={input.message} onChange={handleChange}/>
                 </label>
                 <label>
                     ImageUrl:
                     <br/>
-                    <input type="text" name="imageUrl" value={input.imageUrl} onChange={handleChange}/>
+                    <input type="text" placeholder="imageUrl" name="imageUrl" value={input.imageUrl} onChange={handleChange}/>
                 </label>
                 </div>
                 <button type="submit">Submit</button>
