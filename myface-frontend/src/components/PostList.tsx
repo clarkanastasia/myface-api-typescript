@@ -18,21 +18,24 @@ export default function PostList(){
         return <h1>Waiting for data</h1>
     }
 
-    let likes : string[] = [];
-    let dislikes : string[] = [];
-
-    myData.results.forEach((post) =>
-        post.likedBy.forEach((user) => {
-            likes.push(user.username)
-            }
-        )
-    )
-    myData.results.forEach((post) =>
-        post.dislikedBy.forEach((user) => {
-            dislikes.push(user.username)
-            }
-        )
-    )
+    const handleClick = (postId : number, reaction : string) =>{
+        console.log(postId);
+        fetch(`http://localhost:3001/posts/${postId}/${reaction}/`, {
+            method: 'POST',
+        })
+            .then((response) => {
+                console.log(response.status)
+                if (response.status !== 200) {
+                throw new Error(response.statusText);
+                }
+            })
+            .then(() => {
+                alert(`Your ${reaction} was added`);
+            })
+        .catch((err) => {
+                console.log(err.toString());
+        });
+    }
     
     return (
         <div className="flexContainer">
@@ -45,14 +48,19 @@ export default function PostList(){
                         <h3>{post.message}</h3>
                         <p>By {post.postedBy.username}</p>
                         <p>{moment(post.createdAt).format("Do MMM, YYYY")}</p>
-                        <p>Liked by: {likes.length}</p>
-                        <p>{likes.join(', ')}</p>
-                        <p>Disliked by: {dislikes.length}</p>
-                        <p>{dislikes.join(', ')}</p>
+                        <p>Liked by: {post.likedBy.length}</p>
+                            <p>{post.likedBy.map(user =>
+                                user.username
+                            ).join(', ')}</p>
+                        <p>Disliked by: {post.dislikedBy.length}</p>
+                            <p>{post.dislikedBy.map(user =>
+                            user.username
+                            ).join(', ')}
+                            </p>
                     </div>
                     <div className= "postButtonContainer">
-                        <button type="submit">Dislike</button>  
-                        <button type="submit">Like</button>  
+                        <button type="submit" onClick={() => handleClick(post.id, "dislike")}>Dislike</button>  
+                        <button type="submit" onClick={() => handleClick(post.id, "like")}>Like</button>  
                     </div>
                 </div>
             )}
